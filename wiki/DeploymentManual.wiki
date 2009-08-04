@@ -1,11 +1,11 @@
 #labels Phase-Support
-*=MetaDB Beta Deployment Manual=*
+=*MetaDB Beta Deployment Manual*=
 
 *This page is a work in progress.. Have only included the absolutely essential information, and will add more error handling/troubleshooting as we release.*
 
-*==Overview==*
+==*Overview*==
 
-*This installation manual is intended for users with a working knowledge of Linux administration.*
+*This document is intended for users with a working knowledge of Linux administration.*
 
 MetaDB is a free and open source Java-based web application that can be used for the digital cataloging and management of scholarly image collections. MetaDB’s development environment was: 
 
@@ -23,14 +23,15 @@ We do realize this is a tedious document—unfortunately currently we are only a
 
 _If you have any other questions/concerns etc, we are reachable via email (our contact information is listed at the end of this document)._
 
-*==Pre-Deployment==*
+==*Pre-Deployment*==
 
 *Requirements*: 
-  *Apache Tomcat 5.5.27 or higher
-  *PostgreSQL 8.1.1 or higher. (See the “Advanced Deployment” file for changing DBMS)
-  *Java 6 SDK. (We have built on Java SE)
-  *Java Advanced Imaging and JAI Image I/O Tools
-  *ImageMagick 6.2.8 or higher, with support for JPEG and whatever image formats you will be using-Apache Ant 1.6.5 or higher (for building)
+  * Apache Tomcat 5.5.27 or higher
+  * PostgreSQL 8.1.1 or higher. (See the “Advanced Deployment” file for changing DBMS)
+  * Java 6 SDK. (We have built on Java SE)
+  * Java Advanced Imaging and JAI Image I/O Tools
+  * ImageMagick 6.2.8 or higher, with support for JPEG and whatever image formats you will be using
+  * Apache Ant 1.6.5 or higher (for building)
 
 Please see the respective documentation to install the above. 
 
@@ -61,7 +62,7 @@ Please see the licenses file for the appropriate license acknowledgements for th
 
 We will be assuming that correct privileges have been set for the execution of Tomcat, Java, and that a valid database administrator account exists for your relational database. We will also assume that the necessary network configuration has been done so that your web application can run on your network. 
 
-*==Deployment==*
+==*Deployment*==
 
 MetaDB is built using Apache Ant. There are several configuration files that need to be edited according to your installation of MetaDB. For our example, we will have the build files in a directory called “/usr/yamaguchih/metadb”, the Tomcat installation is located in “/usr/share/tomcat”, and the projects directory in which MetaDB physically saves/reads files is “/mnt/metadb-projects”. 
 
@@ -103,21 +104,16 @@ Here are the entire contents of the incomplete context.xml:
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Context docBase = ""
-path = ""
-allowLinking = "true"
-override="true" 
->
-<Resource name= "jdbc/metadb"
-auth= "Container">
-type= "javax.sql.DataSource"
-
-
-factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
-
-
-username=""
-password= ""
-driverClassName="org.postgresql.Driver"
+         path = ""
+         allowLinking = "true"
+         override="true" 
+ >
+<Resource 
+    name= "jdbc/metadb" auth= "Container" type= "javax.sql.DataSource"
+    factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
+    username=""
+    password= ""
+    driverClassName="org.postgresql.Driver"
 url= "jdbc:postgresql:metadb"
 maxActive="20"
 maxIdle="10"
@@ -175,7 +171,7 @@ When you are confident that you have the settings right, go to your path, or rat
 
 {{{
 
-rm –f {PROJECTS_TOMCAT_PATH_SYMLINK}<nowiki>;</nowiki>
+rm –f {PROJECTS_TOMCAT_PATH_SYMLINK};
 
 ant reload;
 
