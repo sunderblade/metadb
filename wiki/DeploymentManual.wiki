@@ -43,7 +43,7 @@ Java: [http://java.sun.com/javaee/downloads/index.jsp http://java.sun.com/javaee
 
 JAI:[http://java.sun.com/javase/technologies/desktop/media/jai/ http://java.sun.com/javase/technologies/desktop/media/jai/]
 
-ImageMagick: [http://www.imagemagick.org/script/install-source.php http://www.imagemagick.org/script/install-source.php]
+ImageMagick:[http://www.imagemagick.org/script/install-source.php http://www.imagemagick.org/script/install-source.php]
 
 Apache Ant: [http://ant.apache.org/srcdownload.cgi http://ant.apache.org/srcdownload.cgi
 
