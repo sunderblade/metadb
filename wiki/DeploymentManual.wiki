@@ -1,0 +1,239 @@
+#labels Phase-Support
+*=MetaDB Beta Deployment Manual=*
+
+*This page is a work in progress.. Have only included the absolutely essential information, and will add more error handling/troubleshooting as we release.*
+
+*==Overview==*
+
+*This installation manual is intended for users with a working knowledge of Linux administration.*
+
+MetaDB is a free and open source Java-based web application that can be used for the digital cataloging and management of scholarly image collections. MetaDB’s development environment was: 
+
+_Operating System_: Red Hat Enterprise Linux 5.2 (Tikanga) 64 bit
+
+_HTTP Server: _Apache Tomcat 5.5.27 
+
+_Database Server: _PostgreSQL 8.1.1
+
+MetaDB also works with Tomcat version 6 as well as PostgreSQL 8.4, which are the latest versions as of July 31, 2009. We would greatly appreciate input from users who are able to port MetaDB to other relational databases (see the “Advanced Deployment” file).
+
+We have tried to make these instructions as clear as possible, minus configuring all the pre-requisite software. Please understand that MetaDB is a work in progress and that unexpected bugs are bound to happen—in that case, please do let us know! 
+
+We do realize this is a tedious document—unfortunately currently we are only able to provide a build installation using configuration files. While initial set up may take some time and tweaking, once that is done maintenance should be relatively straightforward. We may in the future attempt to create an easier installation, but there are some non-standard settings that MetaDB requires, and we have not been able to come up with a better solution as of now. If you are able to figure out a way to configure/deploy MetaDB more easily, feel free to share it with us.
+
+_If you have any other questions/concerns etc, we are reachable via email (our contact information is listed at the end of this document)._
+
+*==Pre-Deployment==*
+
+*Requirements*: 
+  *Apache Tomcat 5.5.27 or higher
+  *PostgreSQL 8.1.1 or higher. (See the “Advanced Deployment” file for changing DBMS)
+  *Java 6 SDK. (We have built on Java SE)
+  *Java Advanced Imaging and JAI Image I/O Tools
+  *ImageMagick 6.2.8 or higher, with support for JPEG and whatever image formats you will be using-Apache Ant 1.6.5 or higher (for building)
+
+Please see the respective documentation to install the above. 
+
+Tomcat: [http://tomcat.apache.org/tomcat-6.0-doc/index.html http://tomcat.apache.org/tomcat-6.0-doc/index.html]
+
+PostgreSQL: [http://www.postgresql.org/docs/manuals/ http://www.postgresql.org/docs/manuals/]
+
+Java: [http://java.sun.com/javaee/downloads/index.jsp http://java.sun.com/javaee/downloads/index.jsp]
+
+JAI:[http://java.sun.com/javase/technologies/desktop/media/jai/ http://java.sun.com/javase/technologies/desktop/media/jai/]
+
+ImageMagick: [http://www.imagemagick.org/script/install-source.php http://www.imagemagick.org/script/install-source.php]
+Apache Ant: [http://ant.apache.org/srcdownload.cgi http://ant.apache.org/srcdownload.cgi
+
+_In addition, the following libraries are included with MetaDB's build files (you don't need to manually download them):_
+
+  *Apache Commons File Upload 1.2.1
+  *Apache Commons I/O 1.4
+  *Apache Commons Lang 2.4
+  *JAI Codec jai_codec.jar
+  *JAI Core jai_core.jar
+  *JAI main library jai_linux_i586.jar
+  *OpenCSV 1.8
+  *Apache Incubator Sanselan 0.97 
+  *Apache Incubator Sanselan Javadoc 0.97
+
+Please see the licenses file for the appropriate license acknowledgements for the above.
+
+We will be assuming that correct privileges have been set for the execution of Tomcat, Java, and that a valid database administrator account exists for your relational database. We will also assume that the necessary network configuration has been done so that your web application can run on your network. 
+
+*==Deployment==*
+
+MetaDB is built using Apache Ant. There are several configuration files that need to be edited according to your installation of MetaDB. For our example, we will have the build files in a directory called “/usr/yamaguchih/metadb”, the Tomcat installation is located in “/usr/share/tomcat”, and the projects directory in which MetaDB physically saves/reads files is “/mnt/metadb-projects”. 
+
+Also, we will assume this is being done in a Linux environment.
+
+*1. Configuring metadb/build.xml *
+
+Build.xml is the main build script that Ant uses when it deploys MetaDB to your Tomcat server. As such it contains important build path settings. Follow these steps to set up your custom build:
+
+*_Configure the project settings for your installation, found in sections of build.xml: *_
+
+{{{<project name = "Metadb Development"}}}
+
+This is the name MetaDB is deployed under by default, and you can set this to whatever you want. It will not have any visible effects for the users.
+
+{{{<property name=”catalina.home” value=””}}}
+
+_Value_ points to the path where your Tomcat installation is located. Normally you would have set an environment variable called CATALINA_HOME that points to something like /usr/share/tomcat (which would be the path in our example.) The appropriate path should be enclosed between the two quotation marks after _value=_ that points to the Tomcat directory. 
+
+{{{property name=”images.path” value=””>}}}
+
+_Value _points to the path where you plan to physically store MetaDB’s project directories. (Detailed instructions for setting up your file structure are included later in this document.) This could be any path, including network drives, as long as appropriate write/read permissions are set since MetaDB directly reads and writes from this path. In our example this is “/mnt/metadb-projects”. Under normal circumstances, those settings should be enough for a Tomcat deployment. 
+
+
+*_1.2 Unimplemented Build Settings_*
+
+If you look in build.xml you will see the following line: 
+
+{{{<property name="local.images" value="${local.app}/images"/> }}}
+
+This was intended to be used for internal symbolic link handling but unfortunately, it seems like the building conflicts with directory removal/creation resulting in broken symlinks and other errors. As such, we have used a manual reload script in development and placed it as “reload” in the root directory; You may move this file into a more convenient location provided you edit it so it uses the correct paths. 
+
+
+*2. Configuring metadb/webapp-src/etc/context.xml: *
+
+Here are the entire contents of the incomplete context.xml:
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context docBase = ""
+path = ""
+allowLinking = "true"
+override="true" 
+>
+<Resource name= "jdbc/metadb"
+auth= "Container">
+type= "javax.sql.DataSource"
+
+
+factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
+
+
+username=""
+password= ""
+driverClassName="org.postgresql.Driver"
+url= "jdbc:postgresql:metadb"
+maxActive="20"
+maxIdle="10"
+removeAbandonedTimeout<nowiki>= "30"
+logAbandoned<nowiki>= "true"
+maxWait= "-1"
+removeAbandoned="true"/>
+
+</Context>
+}}}
+
+This file needs to be edited to reflect your database server settings. The above context.xml uses the PostgreSQL JDBC driver, but it should be configurable to other databases (see the “Advanced Configuration” document for more details) 
+
+*docbase* should be set to the directory name under which you would like Tomcat to deploy MetaDB under CATALINA_HOME/webapps/. In our example this is /usr/share/tomcat/webapps/metadb .
+
+*path* should be set to the path to where your build.xml lies. In our example this is /usr/yamaguchih/metadb. 
+
+*username* is the username for your database server. 
+
+*password* is the password for your database server under the above username.
+
+
+*3. Checklist:*
+
+Before proceeding, make sure that you have double checked the following:
+
+  * You have installed the necessary components listed under “Pre-Deployment.”
+  * The configuration files listed above have been properly edited to match your system’s environment.
+  * Your Tomcat server and database(PostgreSQL) server are both up and running, and have the correct authentication settings.
+  * Your projects directory (_images.path_, in build.xml, which in our example is set to /mnt/metadb-projects) is valid, has been properly configured in the build script, and has the appropriate permission settings to allow MetaDB to read and write from this directory.
+  * Your Java installation is correct, and there are no class path clashes, missing libraries etc. 
+
+*4. Creating the MetaDB database tables*
+
+Go to the _scripts_ directory located in the root build file directory (in our example /usr/yamaguchih/metadb/scripts. In here you will find a file called “config.sql”. This is the main database setup script for MetaDB and will recreate, from scratch, all of MetaDB’s tables. This means that any data that was in there will be wiped out, so don’t run this script at your leisure! 
+
+Using psql or another database management tool, execute the queries in config.sql. You should now be ready to do a final setup of the deploy script, and deploy MetaDB. 
+
+
+*5. Setting up your projects*
+
+MetaDB requires projects to be organized in a specific file structure. In general, each project gets one subdirectory within the images.path directory from build.xml. In our example, that path is /mnt/metadb-projects. So if we want a project called “proj1”, the path for that project will be “/mnt/metadb-projects/proj1”. 
+
+Within each project directory, create three separate subdirectories: 
+
+“/master” –this is the directory containing all of your master files.“/access” –this is the directory where the derivative images will be created, if any. “/thumbnail” –this is the directory where the thumbnails will be stored. 
+
+Place all of your master files into “/master” in the below format.
+
+In order to ensure data integrity and error detection in a cataloguing environment MetaDB requires that your master filenames end with {#####}.{extension}, where ##### is a five-digit integer sequence from 00000 to 99999 and extension is the file extension. This means one project can (theoretically) have 0 to 99,999, or 100,000 records. Place your master files sequenced by these five digits to have MetaDB process them in that order. Note that if there is a gap in sequencing or improper sequencing, MetaDB will refuse to process. (Refer to the user manual for details)
+
+*4. Setting up the deploy script *
+
+When you are confident that you have the settings right, go to your path, or rather the directory you have the build files in. In our case this is /usr/yamaguchih/metadb. Here there is a file, “reload.sh” which is a bash script. Here are its contents:
+
+{{{
+
+rm –f {PROJECTS_TOMCAT_PATH_SYMLINK}<nowiki>;</nowiki>
+
+ant reload;
+
+sleep 10;
+
+ln -s {PROJECTS_PATH} {PROJECTS_TOMCAT_PATH_SYMLINK}; 
+
+chown -h {TOMCAT_USER}{PROJECTS_TOMCAT_PATH_SYMLINK};
+
+}}}
+
+Replace {PROJECTS_TOMCAT_PATH_SYMLINK} with 
+
+CATALINA_HOME/webapps/docbase/images/projects 
+
+where *CATALINA_HOME* is the path your Tomcat installation (in our case, /usr/share/tomcat) and *docbase* is the same value from build.xml (in our case, ‘metadb’ without the quotes). The path in our example would be 
+
+/usr/share/tomcat/webapps/metadb/images/projects .
+
+* Replace PROJECTS_PATH with the value of _images.path_ from the build.xml file, in our case that would be 
+
+/mnt/metadb-projects. 
+
+* Replace TOMCAT_USER with the user under which Tomcat is running.
+
+This short script will remove the symbolic link to your physical projects directory, reload the web application, wait for 10 seconds, recreate the symbolic link to your physical projects directory, and change the ownership of that link to be your Tomcat user. 
+
+_Note: You can change the settings for the “images/projects” section of the path by editing the global variables in the source (see the “Advanced Configuration” file for more information)_
+
+*5. Deploying MetaDB*
+
+Go to the directory where reload.sh lies (if you moved it make sure it uses the right paths!) and execute the script (usually the command “./reload.sh” will do it). If all goes well, Ant will compile MetaDB, deploy it to your Tomcat server, and you should be able to access MetaDB from your favorite browser.
+
+*=Post-Deployment=*
+
+_Troubleshooting/Known Issues_
+
+*Generic “file not found” or “file inexistent” messages*
+The most likely causes are faulty path configurations. Double check your configuration files and make sure they are using valid paths.
+
+*Java source code fails to compile*
+This could be one of several reasons: Your CLASSPATH may be set up incorrectly, you may be missing one of the required external libraries, or you may be building a corrupt version of MetaDB. If you are getting “cannot find symbol” errors you are most likely missing some libraries. Be sure you have properly set up all of the dependent libraries.
+
+*Ant fails to deploy to the Tomcat directory (CATALINA_HOME)*
+Make sure your build.xml is correct to your Tomcat installation, and that you haven’t changed any unnecessary Tomcat settings which may interfere with the deployment process. We have been able to deploy from scratch on a BSD system as superuser via the above process, and those listed are the only modifications to the configuration files that were necessary.
+
+_System Log_
+
+We have begun working on a component called the System Log, which tracks user and project activity. However, due to time constraints we have not been able to fully implement this. While some system logging is done this is partial functionality. We expect to complete this feature in our next version.
+
+_Debug Log_
+
+MetaDB is a work in progress and as such we log any run time errors to a table called "debug_log". Due to the nature of web applications this seemed like a good way to keep track of exceptions. We have not included the online viewing feature for this table in our release version. If you find a bug, please take a look in this table and send us the entire text of the error. Thanks!
+
+
+*Developer Contact Info*
+Please feel free to email us with any comments, questions, bug reports, suggestions, fixes, etc.
+
+Eric Luhrs, [mailto:luhrse@lafayette.edu luhrse@lafayette.edu] 
+Miguel Haruki Yamaguchi, [mailto:yamagucm@lafayette.edu yamagucm@lafayette.edu]
+Long L. Ho, [mailto:hol@lafayette.edu hol@lafayette.edu]
