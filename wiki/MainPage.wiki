@@ -7,11 +7,8 @@ MetaDB is a web-based distributed metadata creation tool for digital collections
 The MetaDB system allows project managers to create new projects for digital archives and define metadata requirements, while other users such as subject specialists can update project contents with expert knowledge and annotation. Once the data is ready, it can then be exported to standard formats (CSV/TSV) and re-imported seamlessly into any supporting platform. Records are continually integrated into MetaDB through pre-defined settings and automatically processed, making for a smooth transition from record import to export.
 
 
-= Details =
+=Links=
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+[Project Overview]
 
-=Heading1=
+[Getting Started]
