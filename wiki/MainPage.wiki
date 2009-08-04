@@ -12,3 +12,7 @@ The MetaDB system allows project managers to create new projects for digital arc
 [ProjectOverview Project Overview]
 
 [GettingStarted Getting Started]
+
+[Support Support and Detailed Documentation]
+
+[Contact Developer Contact]
