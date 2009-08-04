@@ -35,17 +35,17 @@ _If you have any other questions/concerns etc, we are reachable via email (our c
 
 Please see the respective documentation to install the above. 
 
-Tomcat: [http://tomcat.apache.org/tomcat-6.0-doc/index.html http://tomcat.apache.org/tomcat-6.0-doc/index.html]
+[http://tomcat.apache.org/tomcat-6.0-doc/index.html Tomcat]
 
-PostgreSQL: [http://www.postgresql.org/docs/manuals/ http://www.postgresql.org/docs/manuals/]
+[http://www.postgresql.org/docs/manuals/ PostgreSQL]
 
-Java: [http://java.sun.com/javaee/downloads/index.jsp http://java.sun.com/javaee/downloads/index.jsp]
+[http://java.sun.com/javaee/downloads/index.jsp Java ]
 
-JAI:[http://java.sun.com/javase/technologies/desktop/media/jai/ http://java.sun.com/javase/technologies/desktop/media/jai/]
+[http://java.sun.com/javase/technologies/desktop/media/jai/ JAI]
 
-ImageMagick:[http://www.imagemagick.org/script/install-source.php]
+[http://www.imagemagick.org/script/install-source.php ImageMagick
 
-Apache Ant: [http://ant.apache.org/srcdownload.cgi http://ant.apache.org/srcdownload.cgi
+[http://ant.apache.org/srcdownload.cgi Apache Ant]
 
 _In addition, the following libraries are included with MetaDB's build files (you don't need to manually download them):_
 
