@@ -44,19 +44,20 @@ Java: [http://java.sun.com/javaee/downloads/index.jsp http://java.sun.com/javaee
 JAI:[http://java.sun.com/javase/technologies/desktop/media/jai/ http://java.sun.com/javase/technologies/desktop/media/jai/]
 
 ImageMagick: [http://www.imagemagick.org/script/install-source.php http://www.imagemagick.org/script/install-source.php]
+
 Apache Ant: [http://ant.apache.org/srcdownload.cgi http://ant.apache.org/srcdownload.cgi
 
 _In addition, the following libraries are included with MetaDB's build files (you don't need to manually download them):_
 
-  *Apache Commons File Upload 1.2.1
-  *Apache Commons I/O 1.4
-  *Apache Commons Lang 2.4
-  *JAI Codec jai_codec.jar
-  *JAI Core jai_core.jar
-  *JAI main library jai_linux_i586.jar
-  *OpenCSV 1.8
-  *Apache Incubator Sanselan 0.97 
-  *Apache Incubator Sanselan Javadoc 0.97
+  * Apache Commons File Upload 1.2.1
+  * Apache Commons I/O 1.4
+  * Apache Commons Lang 2.4
+  * JAI Codec jai_codec.jar
+  * JAI Core jai_core.jar
+  * JAI main library jai_linux_i586.jar
+  * OpenCSV 1.8
+  * Apache Incubator Sanselan 0.97 
+  * Apache Incubator Sanselan Javadoc 0.97
 
 Please see the licenses file for the appropriate license acknowledgements for the above.
 
