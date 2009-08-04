@@ -9,6 +9,6 @@ The MetaDB system allows project managers to create new projects for digital arc
 
 =Links=
 
-[ProjectOverview]Project Overview
+[WikiSyntax Project Overview]
 
-[GettingStarted]Getting Started
+[WikiSyntax Getting Started]
