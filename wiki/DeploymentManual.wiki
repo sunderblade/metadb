@@ -43,7 +43,7 @@ Please see the respective documentation to install the above.
 
 [http://java.sun.com/javase/technologies/desktop/media/jai/ JAI]
 
-[http://www.imagemagick.org/script/install-source.php ImageMagick
+[http://www.imagemagick.org/script/install-source.php ImageMagick]
 
 [http://ant.apache.org/srcdownload.cgi Apache Ant]
 
