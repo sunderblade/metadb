@@ -1,4 +1,8 @@
 #labels Phase-Support
+@TODO -context.xml: change to Tomcat manual instead of using instructions here
+@TODO -images.path not used; refer to bashscript instead
+@TODO -change chown path to user:group format
+
 =*MetaDB Beta Deployment Manual*=
 
 *This page is a work in progress.. Have only included the absolutely essential information, and will add more error handling/troubleshooting as we release.*
