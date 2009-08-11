@@ -37,12 +37,12 @@ _If you have any other questions/concerns etc, we are reachable via email (our c
 
 Please see the respective documentation to install the above. 
 
-  *[http://tomcat.apache.org/tomcat-6.0-doc/index.html Tomcat]
-  *[http://www.postgresql.org/docs/manuals/ PostgreSQL]
-  *[http://java.sun.com/javaee/downloads/index.jsp Java ]
-  *[http://java.sun.com/javase/technologies/desktop/media/jai/ JAI]
-  *[http://www.imagemagick.org/script/install-source.php ImageMagick]
-  *[http://ant.apache.org/srcdownload.cgi Apache Ant]
+  * [http://tomcat.apache.org/tomcat-6.0-doc/index.html Tomcat]
+  * [http://www.postgresql.org/docs/manuals/ PostgreSQL]
+  * [http://java.sun.com/javaee/downloads/index.jsp Java ]
+  * [http://java.sun.com/javase/technologies/desktop/media/jai/ JAI]
+  * [http://www.imagemagick.org/script/install-source.php ImageMagick]
+  * [http://ant.apache.org/srcdownload.cgi Apache Ant]
 
 _In addition, the following libraries are included with MetaDB's build files (you don't need to manually download them):_
 
