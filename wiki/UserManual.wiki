@@ -1,0 +1,165 @@
+#summary User guide.
+
+'''MetaDB User Manual (draft)'''
+
+'''''Project Summary and Brief History'''''
+
+MetaDB is a web-based distributed metadata management and creation tool for digital collections in development at Lafayette College. It allows institutions to use a web-based interface to split digitization tasks among several people.
+
+The MetaDB system allows project managers to create projects for digital archives and define metadata requirements, while other users such as subject specialists can update project contents with expert knowledge and annotation. Once the data is ready, it can then be exported to standard formats (CSV/TSV) and re-imported seamlessly into any supporting platform. Records are continually integrated into MetaDB through pre-defined settings, making for a smooth transition from record import to export.
+
+'''This document assumes that you are logging in under administrative access to a properly configured and working MetaDB deployment. This document will go through each feature of the MetaDB user interface and try to explain it as best as possible. '''
+
+'''Main Screen'''
+
+The main menu, as seen, should be pretty straightforward to understand. There is a user name and password section that you must fill out correctly. Once you log in you will be able to access the administrative menus along the top bar. 
+
+'''User Management'''
+
+Create User
+
+This is the user management page. You may create new users and delete them at any time. ''Username ''is a string of any length containing the username. Try not to use special symbols, as they may be problematic when doing internal processing. 
+
+''User Type'' is the main level of privileges the user will be granted. 
+
+{add details on user types here}
+
+''Password ''and ''Confirm Password ''are the password for this new user. It can be changed later if desired.
+
+Delete User
+
+You may delete any of the users in this menu. Once you hit “confirm”, the user will be erased from the MetaDB database along with any associated permissions. 
+
+User Settings
+
+This is where users can be granted and revoked access to projects, as well as changing their settings such as user type and password. 
+
+To give a user access to a project, select the user from the drop down menu, choose the project from the “Project” column, enter the permission settings and click “Grant”. The next time the user logs in, they should be given the appropriate access. 
+
+'''Project Management'''
+
+Create Project
+
+This is where you can create new projects. 
+
+''Project Name ''is the name for the project. Try not to use capital letters, symbols or spaces to prevent possible internal problems. 
+
+''Department abbreviation''
+
+''Base Image URL''
+
+Delete Project
+
+This page allows you to delete existing projects. Deleting a project will cause all of the metadata to be lost, as well as any associated settings including user permissions for that project. Before deleting anything, ensure that you have back up copies.
+
+Edit Project
+
+Here, you may customize the current project’s metadata fields. There are two types of editable metadata: administrative metadata, and descriptive metadata. For our intentions regarding the usage of two different types of metadata, consult the Project Overview document. 
+
+Administrative and Descriptive Metadata are in essence two derivations of the same thing, except that since they have separate access rights, it is possible for a user to have access to one but not the other. Still, in terms of field management, they are identical.
+
+''Adding fields''
+
+Under each heading (“Administrative Metadata” and “Descriptive Metadata”), you will see a list of current fields and a blank row for adding new fields.
+
+A new field has already been provided but to add multiple fields at the same time, click the “+” button to the right. Alternatively, you can enter a number in the “Add Custom Fields” box and click “Add Fields.” You can re-order fields by dragging the arrows to the left of each field.
+
+Upon adding a new field(s), there are some settings that must be chosen via the check boxes:
+
+* Large: If you would like the editing window for the field to be a text box rather than a one line editor, check this box. An example of using this may be to provide a descriptive paragraph. 
+* Controlled: For detailed information about Controlled Vocabulary, see the Controlled Vocabulary section. Selecting this box will bring up a sub-window which will allow you to choose from an existing vocabulary, upload a new one or manually add a new list.
+* Multiple: If this option is checked, users may enter more than one term contained in the vocabulary when inputting metadata. 
+* Additions: If this option is checked, users may add new terms to the vocabulary as they input data; that is, it will be possible to attain suggestions from the vocabulary list, but it will also be possible to modify the vocabulary list on the fly.
+** Note: If a field is not controlled, neither “multiple” nor “additions” will be available.
+
+Once you are done with the settings, hit “Update” and your changes should be reflected. 
+
+''Removing fields''
+
+Remove fields by clicking the “-“ to the right of the field. You will get a confirmation box upon clicking.
+
+Controlled Vocabulary
+
+Controlled vocabulary is used to limit the data that users can input when editing metadata. Controlled vocabulary is global to all projects and can be tied to individual fields. A controlled vocabulary consists of a newline-delimited list of words or phrases that can be used throughout MetaDB. They can be edited at any time through the “Edit Project” or the “Controlled Vocabulary” sections in Project Management. 
+
+The proper use of controlled vocabulary can be extremely useful when handling data that contains multiple references to the same thing. For example, if you have a project that refers repeatedly to the name “Marquis de Lafayette”, you can specify a vocabulary that contains this string, but allow the user to use additional names if necessary through the “Additions” setting.
+
+Image Settings
+
+This is where derivative generation, as well as manual processing of new items in a project, takes place. At the top you will see a summary of the project, with its name, path, and the number of records. 
+
+Under “Derivative Settings” you will see three editable lines. These are the settings for generating derivative images. 
+
+''Enabling/Disabling''
+
+By default, thumbnails and full-size JPEGs are automatically generated and you cannot disable these. You may disable the “medium” and “large” settings, meaning these images will not be generated. 
+
+''Size''
+
+You can enter a maximum size, in terms of maximum width and maximum length, for the derivative setting. MetaDB will automatically calculate the appropriate scale factor for you, so there’s no need to specify the size exactly.
+
+''Brand''
+
+The “brand” setting controls text annotation for the derivatives.
+
+“None” means that the image is left untouched and no text will be generated.
+
+“Under” means that annotation text will be added to the bottom of the scaled image, resulting in extra image length. Note that the “under” option will not overwrite any portion of the original image; it simply appends a rectangular band below the image containing the annotation text.
+
+“Over” means that the annotation text will be watermarked onto the image. The watermark is transparent and meant to be unobtrusive. 
+
+''Text Color''
+
+This is the color of the text you want to use in annotations. 
+
+''Background Color (“under” only)''
+
+This is the color of the rectangular band itself when using the “under” option. 
+
+''Preview'' shows you the colors as they would appear when using the “under” option.
+
+''Branding Text''
+
+This large text box contains your annotation text for the images. Please note that due to current functionality limitations, the “over” setting cannot fit lengthy text properly; when using the “over” setting and you need the full annotation to be visible, ensure that your annotation text is of the appropriate length and format; i.e using line breaks when necessary as well as keeping the amount of text as low as possible.
+
+''Processing Images''
+
+For detailed information on how MetaDB works with processing your master files, consult the Appendix.
+
+The “Save” button will save your current derivative settings. 
+
+The “Submit” button will process your master files according to one of three settings (note that sequencing matters—if there is an incorrect item sequence, MetaDB will stop processing):
+
+* New: MetaDB will look for previously inexistent files in your master directory, and add them to your project as new records. Note that master file sequencing matters here: If you alter a file which was already imported into the system, MetaDB will not recognize it as “new” since it will start from the last ''item sequence (“#####”), not the date modified.'' This is to help ensure data integrity and confusion about what is new and what is not. 
+* All: Regardless of whether they are new or not, MetaDB will process all of the master files it can find. This means it will detect changed files, unlike the above option. 
+* Select Range: You can enter comma-delimited numbers and number ranges (for ex, to process items 1, 2-5, and 8, you would enter “1, 2-5, 8”) , which are the item numbers of the master files you want to process. 
+
+'''Data Management'''
+
+Import Metadata 
+
+On this screen you may import T/CSV files into MetaDB’s database.
+
+To choose the project you would like to import data into, choose it from the upper right hand menu.
+
+The “Dataset” option currently only has administrative/descriptive data and may be changed in future versions. The “Choose delimiter” specifies the type of import; that is, CSV or TSV.
+
+The “Browse” box lets you choose a T/CSV file from the computer you are using (or over the network), which will actually be imported. 
+
+The “Import” button will commit the import. MetaDB will process the CSV/TSV file and the data will be put into the project you select. Go to the metadata pages to see the data you imported.
+
+Export Metadata
+
+On this screen you may export T/CSV files from the existing metadata. Like on the Import page, select the project with the menu on the upper right hand corner. Once you have 
+
+View Metadata
+
+'''Item Metadata'''
+
+'''Search'''
+
+'''Appendix'''
+
+'''FAQ'''
+
+'''Support/Contact Information'''
