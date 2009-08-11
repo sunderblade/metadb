@@ -1,6 +1,4 @@
 #labels Phase-Support
-@TODO -context.xml: change to Tomcat manual instead of using instructions here
-@TODO -images.path not used; refer to bashscript instead
 @TODO -change chown path to user:group format
 
 =*MetaDB Beta Deployment Manual*=
@@ -91,55 +89,9 @@ _Value_ points to the path where your Tomcat installation is located. Normally y
 
 _Value _points to the path where you plan to physically store MetaDB’s project directories. (Detailed instructions for setting up your file structure are included later in this document.) This could be any path, including network drives, as long as appropriate write/read permissions are set since MetaDB directly reads and writes from this path. In our example this is “/mnt/metadb-projects”. Under normal circumstances, those settings should be enough for a Tomcat deployment. 
 
-
-*_1.2 Unimplemented Build Settings_*
-
-If you look in build.xml you will see the following line: 
-
-{{{<property name="local.images" value="${local.app}/images"/> }}}
-
-This was intended to be used for internal symbolic link handling but unfortunately, it seems like the building conflicts with directory removal/creation resulting in broken symlinks and other errors. As such, we have used a manual reload script in development and placed it as “reload” in the root directory; You may move this file into a more convenient location provided you edit it so it uses the correct paths. 
-
-
 *2. Configuring metadb/webapp-src/etc/context.xml: *
 
-Here are the entire contents of the incomplete context.xml:
-
-{{{
-<?xml version="1.0" encoding="UTF-8"?>
-
-<Context docBase = ""
-         path = ""
-         allowLinking = "true"
-         override="true" 
- >
-<Resource 
-    name= "jdbc/metadb" auth= "Container" type= "javax.sql.DataSource"
-    factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
-    username=""
-    password= ""
-    driverClassName="org.postgresql.Driver"
-url= "jdbc:postgresql:metadb"
-maxActive="20"
-maxIdle="10"
-removeAbandonedTimeout<nowiki>= "30"
-logAbandoned<nowiki>= "true"
-maxWait= "-1"
-removeAbandoned="true"/>
-
-</Context>
-}}}
-
-This file needs to be edited to reflect your database server settings. The above context.xml uses the PostgreSQL JDBC driver, but it should be configurable to other databases (see the “Advanced Configuration” document for more details) 
-
-*docbase* should be set to the directory name under which you would like Tomcat to deploy MetaDB under CATALINA_HOME/webapps/. In our example this is /usr/share/tomcat/webapps/metadb .
-
-*path* should be set to the path to where your build.xml lies. In our example this is /usr/yamaguchih/metadb. 
-
-*username* is the username for your database server. 
-
-*password* is the password for your database server under the above username.
-
+Please refer to the Tomcat documentation for details on setting up context.xml. This file depends greatly on your system's configuration. 
 
 *3. Checklist:*
 
@@ -184,7 +136,7 @@ sleep 10;
 
 ln -s {PROJECTS_PATH} {PROJECTS_TOMCAT_PATH_SYMLINK}; 
 
-chown -h {TOMCAT_USER}{PROJECTS_TOMCAT_PATH_SYMLINK};
+chown -h {TOMCAT_USER}:{TOMCAT_GROUP} {PROJECTS_TOMCAT_PATH_SYMLINK};
 
 }}}
 
@@ -196,11 +148,13 @@ where *CATALINA_HOME* is the path your Tomcat installation (in our case, /usr/sh
 
 /usr/share/tomcat/webapps/metadb/images/projects .
 
-* Replace PROJECTS_PATH with the value of _images.path_ from the build.xml file, in our case that would be 
+* Replace PROJECTS_PATH with the path to your projects directory. In our example this would be
 
 /mnt/metadb-projects. 
 
 * Replace TOMCAT_USER with the user under which Tomcat is running.
+
+* Replace TOMCAT_GROUP with the group in which the above TOMCAT_USER belongs.
 
 This short script will remove the symbolic link to your physical projects directory, reload the web application, wait for 10 seconds, recreate the symbolic link to your physical projects directory, and change the ownership of that link to be your Tomcat user. 
 
@@ -229,8 +183,11 @@ We have begun working on a component called the System Log, which tracks user an
 
 _Debug Log_
 
-MetaDB is a work in progress and as such we log any run time errors to a table called "debug_log". Due to the nature of web applications this seemed like a good way to keep track of exceptions. We have not included the online viewing feature for this table in our release version. If you find a bug, please take a look in this table and send us the entire text of the error. Thanks!
+MetaDB is a work in progress and as such is prone to have programming error or stability issues. We appreciate greatly any feedback that could help us make it run better. 
 
+We log any run time errors to a table called "debug_log". Due to the nature of web applications this seemed like a good way to keep track of exceptions. We have not included the online viewing feature for this table in our release version. If you find a bug, please take a look in this table and send us the entire text of the error. Thanks!
+
+_Disclaimer_
 
 *Developer Contact Info*
 Please feel free to email us with any comments, questions, bug reports, suggestions, fixes, etc.
