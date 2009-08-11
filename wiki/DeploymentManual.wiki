@@ -1,4 +1,6 @@
+#summary Detailed deployment and configuration instructions
 #labels Phase-Support
+
 =*MetaDB Beta Deployment Manual*=
 
 *This page is a work in progress.. Have only included the absolutely essential information, and will add more error handling/troubleshooting as we release.*
