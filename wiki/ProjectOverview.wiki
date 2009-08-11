@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Overview description and introduction to MetaDB.
 #labels Phase-Requirements
 
 = Introduction =
