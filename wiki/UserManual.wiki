@@ -69,11 +69,14 @@ A new field has already been provided but to add multiple fields at the same tim
 
 Upon adding a new field(s), there are some settings that must be chosen via the check boxes:
 
-* Large: If you would like the editing window for the field to be a text box rather than a one line editor, check this box. An example of using this may be to provide a descriptive paragraph. 
-* Controlled: For detailed information about Controlled Vocabulary, see the Controlled Vocabulary section. Selecting this box will bring up a sub-window which will allow you to choose from an existing vocabulary, upload a new one or manually add a new list.
-* Multiple: If this option is checked, users may enter more than one term contained in the vocabulary when inputting metadata. 
-* Additions: If this option is checked, users may add new terms to the vocabulary as they input data; that is, it will be possible to attain suggestions from the vocabulary list, but it will also be possible to modify the vocabulary list on the fly.
-* * Note: If a field is not controlled, neither “multiple” nor “additions” will be available.
+  * Large: If you would like the editing window for the field to be a text box rather than a one line editor, check this box. An example of using this may be to provide a descriptive paragraph. 
+
+  * Controlled: For detailed information about Controlled Vocabulary, see the Controlled Vocabulary section. Selecting this box will bring up a sub-window which will allow you to choose from an existing vocabulary, upload a new one or manually add a new list.
+
+  * Multiple: If this option is checked, users may enter more than one term contained in the vocabulary when inputting metadata. 
+  
+  * Additions: If this option is checked, users may add new terms to the vocabulary as they input data; that is, it will be possible to attain suggestions from the vocabulary list, but it will also be possible to modify the vocabulary list on the fly.
+  *  * Note: If a field is not controlled, neither “multiple” nor “additions” will be available.
 
 Once you are done with the settings, hit “Update” and your changes should be reflected. 
 
