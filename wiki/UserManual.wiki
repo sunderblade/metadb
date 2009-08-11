@@ -3,7 +3,7 @@
 
 =MetaDB User Manual (draft)=
 
-*_Project Summary and Brief History_*
+<u>*_Project Summary and Brief History_*</u>
 
 MetaDB is a web-based distributed metadata management and creation tool for digital collections in development at Lafayette College. It allows institutions to use a web-based interface to split digitization tasks among several people.
 
@@ -17,7 +17,7 @@ The main menu, as seen, should be pretty straightforward to understand. There is
 
 ==User Management==
 
-*_Create User_*
+<u>*_Create User_*</u>
 
 This is the user management page. You may create new users and delete them at any time. 
 
@@ -29,11 +29,11 @@ _User Type_ is the main level of privileges the user will be granted.
 
 _Password_ and _Confirm Password_ are the password for this new user. It can be changed later if desired.
 
-*_Delete User_*
+<u>*_Delete User_*</u>
 
 You may delete any of the users in this menu. Once you hit “confirm”, the user will be erased from the MetaDB database along with any associated permissions. 
 
-*_User Settings_*
+<u>*_User Settings_*</u>
 
 This is where users can be granted and revoked access to projects, as well as changing their settings such as user type and password. 
 
@@ -41,7 +41,7 @@ To give a user access to a project, select the user from the drop down menu, cho
 
 ==Project Management==
 
-*_Create Project_*
+<u>*_Create Project_*</u>
 
 This is where you can create new projects. 
 
@@ -51,11 +51,11 @@ _Department abbreviation_
 
 _Base Image URL_
 
-*_Delete Project_*
+<u>*_Delete Project_*</u>
 
 This page allows you to delete existing projects. Deleting a project will cause all of the metadata to be lost, as well as any associated settings including user permissions for that project. Before deleting anything, ensure that you have back up copies.
 
-*_Edit Project_*
+<u>*_Edit Project_*</u>
 
 Here, you may customize the current project’s metadata fields. There are two types of editable metadata: administrative metadata, and descriptive metadata. For our intentions regarding the usage of two different types of metadata, consult the Project Overview document. 
 
@@ -84,7 +84,7 @@ _Removing fields_
 
 Remove fields by clicking the “-“ to the right of the field. You will get a confirmation box upon clicking.
 
-*_Image Settings_*
+<u>*_Image Settings_*</u>
 
 This is where derivative generation, as well as manual processing of new items in a project, takes place. At the top you will see a summary of the project, with its name, path, and the number of records. 
 
