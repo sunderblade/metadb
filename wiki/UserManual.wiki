@@ -156,7 +156,7 @@ The “Import” button will commit the import. MetaDB will process the CSV/TSV 
 
 _Export Metadata_
 
-On this screen you may export T/CSV files from the existing metadata. Like on the Import page, select the project with the menu on the upper right hand corner. Once you have 
+On this screen you may export T/CSV files from the existing metadata. Like on the Import page, select the project with the menu on the upper right hand corner. Once you have selected the delimiter and range of record numbers to export, hit "Export" to receive a download prompt with the generated T/CSV file.
 
 _View Metadata_
 
