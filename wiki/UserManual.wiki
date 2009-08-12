@@ -11,7 +11,7 @@ The MetaDB system allows project managers to create projects for digital archive
 
 *This document assumes that you are logging in under administrative access to a properly configured and working MetaDB deployment. This document will go through each feature of the MetaDB user interface and try to explain it as best as possible.*
 
-*Main Screen*
+==Main Screen==
 
 The main menu, as seen, should be pretty straightforward to understand. There is a user name and password section that you must fill out correctly. Once you log in you will be able to access the administrative menus along the top bar. 
 
