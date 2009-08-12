@@ -188,6 +188,26 @@ MetaDB has a standard search function. Exact phrases can be specified by a pair 
 
 ==Appendix==
 
+*Master File Processing*
+
+_File organization_
+
+MetaDB follows a very strict organization of master files for the purpose of preserving data integrity and orderliness. 
+
+Each master file can be named as desired; however, it is advisable to use a file name structure that makes it clear what project the master file is part of, under what organization; for example, from a file name like lafcol-history-taiwan-*****.tif it is quite obvious that the collection belongs to the Lafayette College History department, and has something to do with Taiwan. 
+
+Aside from the consistency in prefixing the images, master files also must be named in a particular ascending order, starting from {prefix}-00001.{extension} and going up to a maximum of {prefix}-99999.{extension}. This is the order in which MetaDB will look for records and the order in which they will be organized within MetaDB. Gaps are not allowed; that is you cannot have something like 
+
+..00001.tif
+..00002.tif
+..00099.tif
+
+If this is detected, MetaDB will refuse to process the third file unless corrective action is taken and the master files are organized properly. 
+
+_Definition of "new" and "existing" records_
+
+If a master file has been taken in by MetaDB, parsed, and stored, then that is considered to be an "existing" record, regardless of the presence of user-created data or derivatives. If a master file has not yet been touched by MetaDB and the system contains no references to it, then that is considered to be a "new" record. 
+
 ==FAQ==
 
 ==Support/Contact Information==
