@@ -130,7 +130,7 @@ The “Save” button will save your current derivative settings.
 
 The “Submit” button will process your master files according to one of three settings (note that sequencing matters—if there is an incorrect item sequence, MetaDB will stop processing):
  
-  * New: MetaDB will look for previously inexistent files in your master directory, and add them to your project as new records. Note that master file sequencing matters here: If you alter a file which was already imported into the system, MetaDB will not recognize it as “new” since it will start from the last ''item sequence (“#####”), not the date modified.'' This is to help ensure data integrity and confusion about what is new and what is not. 
+  * New: MetaDB will look for previously nonexistent files in your master directory, and add them to your project as new records. Note that master file sequencing matters here: If you alter a file which was already imported into the system, MetaDB will not recognize it as “new” since it will start from the last ''item sequence (“#####”), not the date modified.'' This is to help ensure data integrity and confusion about what is new and what is not. 
   * All: Regardless of whether they are new or not, MetaDB will process all of the master files it can find. This means it will detect changed files, unlike the above option. 
   * Select Range: You can enter comma-delimited numbers and number ranges (for ex, to process items 1, 2-5, and 8, you would enter “1, 2-5, 8”) , which are the item numbers of the master files you want to process. 
 
@@ -160,9 +160,31 @@ On this screen you may export T/CSV files from the existing metadata. Like on th
 
 _View Metadata_
 
+This option allows you to view all of the metadata in a project in a convenient, Excel-like table. You can select the attributes from the list, and click "View Table." You will see a table containing all of the attributes you selected for each record in the selected project. You can also edit the metadata directly on the page by clicking the text--an input box should appear. (Note: Some of the metadata is not editable, namely the technical attributes.)
+  
 ==Item Metadata==
 
+This is the main metadata editing screen that you will be interacting with in using MetaDB to catalogue data. At the top you will see the navigation buttons for accessing different records in the project. The fast-rewind button will take you to the first record, the rewind to the previous. The skip button will take you to the next record, and the fast-forward button will take you to the last. You can also enter a number in the box and hit "enter". 
+
+On the left side, you will see links to derivative images. Notice that if you haven't generated them, they will be unavailable (for obvious reasons). Below that you will see a thumbnail of the master file, and the file name. 
+
+On the right side you will see the attributes for the item and the data contained in them, separated into three tabs for the different types of metadata. Of these, you may edit the data in the "Descriptive" and "Administrative" tabs. 
+
+Note that if controlled vocabulary is enabled for any attribute, you will need to input data based on the controlled vocabulary (except when the option is set to "additions" where you will be able to add new words). 
+
+The "Update" button will commit any changes so far. 
+
+Each attribute has a check box next to it. This is the 'apply to multiple' option. Once you click on at least one check box, a new option will appear next to the "Update" button containing "All" or "These". 
+
+"All" will apply the changes you make to the field to ALL records in the project, overwriting any existing data. 
+
+For "These" You can enter comma-delimited numbers and number ranges (for ex, to process items 1, 2-5, and 8, you would enter “1, 2-5, 8”) , which are the item numbers of the records you want to apply the change to. 
+
+If you have multiple check boxes selected, then that means the data contained in all of the checked attributes will be reflected in the range you specify. You can also select all by clicking the topmost check box.
+
 ==Search==
+
+MetaDB has a standard search function. Exact phrases can be specified by a pair of double quotes (" "). You can select whether to search from all projects or search a single project. Hit "Search" to perform the query. Should any results be found, you will see the thumbnail of the master records the query found, the item number of the records, and the surrounding text of the search query with the key words highlighted.
 
 ==Appendix==
 
