@@ -77,8 +77,10 @@ In metadb.conf there are two types of settings:
 
 Build settings are what you need to get right in order for MetaDB to build properly. In metadb.conf you will see the following lines: 
 
+{{{
 TOMCAT_PATH				=""
 PROJECTS_PATH				=""
+}}}
 
 Replace TOMCAT_PATH with the path of your Tomcat installation, or CATALINA_HOME. 
 
