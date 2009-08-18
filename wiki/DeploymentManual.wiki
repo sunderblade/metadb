@@ -66,7 +66,7 @@ MetaDB is built using Apache Ant. There are several configuration files that nee
 
 Also, we will assume this is being done in a Linux environment.
 
-*1. Configuring metadb/build.xml *
+*1. Configuring metadb/metadb.conf and running Config
 
 MetaDB comes with a simple configuration tool which reads the configuration file "metadb.conf" and generates the files "Global.java" and "build.xml". 
 
@@ -162,7 +162,7 @@ This short script will remove the symbolic link to your physical projects direct
 
 Go to the directory where reload.sh lies (if you moved it make sure it uses the right paths!) and execute the script (usually the command “./reload.sh” will do it). If all goes well, Ant will compile MetaDB, deploy it to your Tomcat server, and you should be able to access MetaDB from your favorite browser.
 
-*=Post-Deployment=*
+=*Post-Deployment*=
 
 _Troubleshooting/Known Issues_
 
