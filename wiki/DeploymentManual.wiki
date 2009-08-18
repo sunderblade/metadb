@@ -68,25 +68,31 @@ Also, we will assume this is being done in a Linux environment.
 
 *1. Configuring metadb/build.xml *
 
-Build.xml is the main build script that Ant uses when it deploys MetaDB to your Tomcat server. As such it contains important build path settings. Follow these steps to set up your custom build:
+MetaDB comes with a simple configuration tool which reads the configuration file "metadb.conf" and generates the files "Global.java" and "build.xml". 
 
-*_Configure the project settings for your installation, found in sections of build.xml: *_
+In metadb.conf there are two types of settings: 
 
-{{{<project name = "Metadb Development"}}}
+-Build settings, and 
+-Global variables. 
 
-This is the name MetaDB is deployed under by default, and you can set this to whatever you want. It will not have any visible effects for the users.
+Build settings are what you need to get right in order for MetaDB to build properly. In metadb.conf you will see the following lines: 
 
-{{{<property name=”catalina.home” value=””}}}
+TOMCAT_PATH				=""
+PROJECTS_PATH				=""
 
-_Value_ points to the path where your Tomcat installation is located. Normally you would have set an environment variable called CATALINA_HOME that points to something like /usr/share/tomcat (which would be the path in our example.) The appropriate path should be enclosed between the two quotation marks after _value=_ that points to the Tomcat directory. 
+Replace TOMCAT_PATH with the path of your Tomcat installation, or CATALINA_HOME. 
 
-{{{property name=”images.path” value=””>}}}
+As will be explained later, MetaDB relies on a folder structure to manage projects. Each project gets a directory, which in turn contains several sub-directories. MetaDB requires all of these project base directories to be organized within one parent directory. 
 
-_Value _points to the path where you plan to physically store MetaDB’s project directories. (Detailed instructions for setting up your file structure are included later in this document.) This could be any path, including network drives, as long as appropriate write/read permissions are set since MetaDB directly reads and writes from this path. In our example this is “/mnt/metadb-projects”. Under normal circumstances, those settings should be enough for a Tomcat deployment. 
+Set PROJECTS_PATH to the location of this parent directory which will contain all of the project base directories. 
+
+The file metadb.conf also contains global variable settings, please see the actual metadb.conf file for details on what the settings affect. 
+
+After you have edited metadb.conf, run "bash configure". This should run Config.java, and your build settings and global settings should be updated. Make sure that this directory is included in your CLASSPATH before attempting to run, otherwise ClassDefNotFoundException may occur. 
 
 *2. Configuring metadb/webapp-src/etc/context.xml: *
 
-Please refer to the Tomcat documentation for details on setting up context.xml. This file depends greatly on your system's configuration. 
+Please refer to the Tomcat documentation for details on setting up context.xml. This file depends greatly on your system's particular configuration. 
 
 *3. Checklist:*
 
@@ -100,14 +106,13 @@ Before proceeding, make sure that you have double checked the following:
 
 *4. Creating the MetaDB database tables*
 
-Go to the _scripts_ directory located in the root build file directory (in our example /usr/yamaguchih/metadb/scripts. In here you will find a file called “config.sql”. This is the main database setup script for MetaDB and will recreate, from scratch, all of MetaDB’s tables. This means that any data that was in there will be wiped out, so don’t run this script at your leisure! 
+Go to the _scripts_ directory located in the root build file directory (in our example /usr/yamaguchih/metadb/scripts. In here you will find a file called “metadb.sql”. This is the main database setup script for MetaDB and will recreate, from scratch, all of MetaDB’s tables. This means that any data that was in there will be wiped out, so don’t run this script at your leisure! 
 
-Using psql or another database management tool, execute the queries in config.sql. You should now be ready to do a final setup of the deploy script, and deploy MetaDB. 
-
+Using psql or another database management tool, execute the queries in "metadb.sql". You should now be ready to do a final setup of the deploy script, and deploy MetaDB. 
 
 *5. Setting up your projects*
 
-MetaDB requires projects to be organized in a specific file structure. In general, each project gets one subdirectory within the images.path directory from build.xml. In our example, that path is /mnt/metadb-projects. So if we want a project called “proj1”, the path for that project will be “/mnt/metadb-projects/proj1”. 
+MetaDB requires projects to be organized in a specific file structure. In general, each project gets one subdirectory within the PROJECTS_PATH directory from metadb.conf. In our example, that path is /mnt/metadb-projects. So if we want a project called “proj1”, the path for that project will be “/mnt/metadb-projects/proj1”. 
 
 Within each project directory, create three separate subdirectories: 
 
@@ -115,7 +120,7 @@ Within each project directory, create three separate subdirectories:
 
 Place all of your master files into “/master” in the below format.
 
-In order to ensure data integrity and error detection in a cataloguing environment MetaDB requires that your master filenames end with {#####}.{extension}, where ##### is a five-digit integer sequence from 00000 to 99999 and extension is the file extension. This means one project can (theoretically) have 0 to 99,999, or 100,000 records. Place your master files sequenced by these five digits to have MetaDB process them in that order. Note that if there is a gap in sequencing or improper sequencing, MetaDB will refuse to process. (Refer to the user manual for details)
+In order to ensure data integrity and error detection in a cataloguing environment MetaDB requires that your master filenames end with {#####}.{extension}, where ##### is a five-digit integer sequence from 00001 to 99999 and extension is the file extension. This means one project can (theoretically) have 99,999 records. Place your master files sequenced by these five digits to have MetaDB process them in that order. Note that if there is a gap in sequencing or improper sequencing, MetaDB will refuse to process. (Refer to the user manual for details)
 
 *4. Setting up the deploy script *
 
@@ -143,7 +148,7 @@ where *CATALINA_HOME* is the path your Tomcat installation (in our case, /usr/sh
 
 /usr/share/tomcat/webapps/metadb/images/projects .
 
-* Replace PROJECTS_PATH with the path to your projects directory. In our example this would be
+* Replace PROJECTS_PATH with the value of the variable of the same name from metadb.conf. In our example this would be
 
 /mnt/metadb-projects. 
 
@@ -151,9 +156,7 @@ where *CATALINA_HOME* is the path your Tomcat installation (in our case, /usr/sh
 
 * Replace TOMCAT_GROUP with the group in which the above TOMCAT_USER belongs.
 
-This short script will remove the symbolic link to your physical projects directory, reload the web application, wait for 10 seconds, recreate the symbolic link to your physical projects directory, and change the ownership of that link to be your Tomcat user. 
-
-_Note: You can change the settings for the “images/projects” section of the path by editing the global variables in the source (see the “Advanced Configuration” file for more information)_
+This short script will remove the symbolic link to your physical projects directory, reload the web application, wait for 10 seconds, recreate the symbolic link to your physical projects directory, and change the ownership of that link to be your Tomcat user (to allow Tomcat to access the master files).
 
 *5. Deploying MetaDB*
 
@@ -170,7 +173,7 @@ The most likely causes are faulty path configurations. Double check your configu
 This could be one of several reasons: Your CLASSPATH may be set up incorrectly, you may be missing one of the required external libraries, or you may be building a corrupt version of MetaDB. If you are getting “cannot find symbol” errors you are most likely missing some libraries. Be sure you have properly set up all of the dependent libraries.
 
 *Ant fails to deploy to the Tomcat directory (CATALINA_HOME)*
-Make sure your build.xml is correct to your Tomcat installation, and that you haven’t changed any unnecessary Tomcat settings which may interfere with the deployment process. We have been able to deploy from scratch on a BSD system as superuser via the above process, and those listed are the only modifications to the configuration files that were necessary.
+Make sure your metadb.conf and build.xml are correct to your Tomcat installation, and that you haven’t changed any unnecessary Tomcat settings which may interfere with the deployment process. We have been able to deploy from scratch on a BSD system as superuser via the above process, and those listed are the only modifications to the configuration files that were necessary.
 
 _System Log_
 
@@ -180,7 +183,7 @@ _Debug Log_
 
 MetaDB is a work in progress and as such is prone to have programming error or stability issues. We appreciate greatly any feedback that could help us make it run better. 
 
-We log any run time errors to a table called "debug_log". Due to the nature of web applications this seemed like a good way to keep track of exceptions. We have not included the online viewing feature for this table in our release version. If you find a bug, please take a look in this table and send us the entire text of the error. Thanks!
+We log any run time errors to a table called "debug_log". Due to the nature of web applications this seemed like a good way to keep track of exceptions. We have not included the online viewing feature for this table in our release version. If you think you've found a bug, please take a look directly at this table and send us the entire text of the error. Thanks!
 
 _Disclaimer_
 
