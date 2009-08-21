@@ -1,5 +1,4 @@
-=Summary= 
-Contact information of developers
+#summary Contact information of developers.
 
 =Contact Information=
 
