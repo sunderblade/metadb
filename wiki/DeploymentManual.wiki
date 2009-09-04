@@ -32,7 +32,7 @@ _If you have any other questions/concerns etc, we are reachable via email (our c
   * PostgreSQL 8.1.1 or higher. (See the “Advanced Deployment” file for changing DBMS)
   * Java 6 SDK. (We have built on Java SE)
   * Java Advanced Imaging and JAI Image I/O Tools
-  * Latest version of ImageMagick, with support for JPEG and any other necessary formats. libjpeg is suggested for JPEG support.
+  * Latest version of ImageMagick, with support for JPEG and any other necessary formats. We used libjpeg during development for JPEG support.
   * Apache Ant 1.6.5 or higher (for building)
 
 Please see the respective documentation to install the above. 
