@@ -9,7 +9,7 @@
 
 *This document is intended for users with a working knowledge of Linux administration.*
 
-MetaDB is a free and open source Java-based web application that can be used for the digital cataloging and management of scholarly image collections. MetaDB’s development environment was: 
+MetaDB is a free and open source Java-based web application that can be used for the digital cataloging and management of scholarly image collections. MetaDB's development environment was: 
 
 _Operating System_: Red Hat Enterprise Linux 5.2 (Tikanga) 64 bit
 
@@ -19,7 +19,7 @@ _Database Server: _PostgreSQL 8.1.1
 
 MetaDB also works with Tomcat version 6 as well as PostgreSQL 8.4, which are the latest versions as of July 31, 2009. We would greatly appreciate input from users who are able to port MetaDB to other relational databases (see the “Advanced Deployment” file).
 
-We have tried to make these instructions as clear as possible, minus configuring all the pre-requisite software. Please understand that MetaDB is a work in progress and that unexpected bugs are bound to happen—in that case, please do let us know! 
+We have tried to make these instructions as clear as possible, minus configuring all the prerequisite software. Please understand that MetaDB is a work in progress and that unexpected bugs are bound to happen—in that case, please do let us know! 
 
 We do realize this is a tedious document—unfortunately currently we are only able to provide a build installation using configuration files. While initial set up may take some time and tweaking, once that is done maintenance should be relatively straightforward. We may in the future attempt to create an easier installation, but there are some non-standard settings that MetaDB requires, and we have not been able to come up with a better solution as of now. If you are able to figure out a way to configure/deploy MetaDB more easily, feel free to share it with us.
 
@@ -52,17 +52,18 @@ _In addition, the following libraries are included with MetaDB's build files (yo
   * JAI Codec jai_codec.jar
   * JAI Core jai_core.jar
   * JAI main library jai_linux_i586.jar
+  * naming-factory-dbcp.jar
   * OpenCSV 1.8
   * Apache Incubator Sanselan 0.97 
   * Apache Incubator Sanselan Javadoc 0.97
 
-Please see the licenses file for the appropriate license acknowledgements for the above.
+Please see the licenses file for the appropriate license acknowledgments for the above.
 
 We will be assuming that correct privileges have been set for the execution of Tomcat, Java, and that a valid database administrator account exists for your relational database. We will also assume that the necessary network configuration has been done so that your web application can run on your network. 
 
 ==*Deployment*==
 
-MetaDB is built using Apache Ant. There are several configuration files that need to be edited according to your installation of MetaDB. For our example, we will have the build files in a directory called “/usr/yamaguchih/metadb”, the Tomcat installation is located in “/usr/share/tomcat”, and the projects directory in which MetaDB physically saves/reads files is “/mnt/metadb-projects”. 
+MetaDB is built using Apache Ant. There are several configuration files that need to be edited according to your installation of MetaDB. For our example, we will have the build files in a directory called “/usr/yamaguchih/metadb”, the Tomcat installation is located in “/usr/share/tomcat”, the master file directory is “/mnt/imago1/master", and the derivative root directory is "/mnt/imago1/access".
 
 Also, we will assume this is being done in a Linux environment.
 
@@ -79,14 +80,15 @@ Build settings are what you need to get right in order for MetaDB to build prope
 
 {{{
 TOMCAT_PATH				=""
-PROJECTS_PATH				=""
+MASTERS_DIRECTORY			=""
+DERIV_DIRECTORY                         =""
 }}}
 
 Replace TOMCAT_PATH with the path of your Tomcat installation, or CATALINA_HOME. 
 
-As will be explained later, MetaDB relies on a folder structure to manage projects. Each project gets a directory, which in turn contains several sub-directories. MetaDB requires all of these project base directories to be organized within one parent directory. 
+As will be explained later, MetaDB relies on a folder structure to manage projects. There are two superdirectories called "master" and "access. Within these, each project gets a directory, which contains all of the pertinent files for either master images or derivative images.
 
-Set PROJECTS_PATH to the location of this parent directory which will contain all of the project base directories. 
+Set MASTERS_DIRECTORY to the location of the parent directory for your master files and DERIV_DIRECTORY to the location of the parent directory for your derivative files.
 
 The file metadb.conf also contains global variable settings, please see the actual metadb.conf file for details on what the settings affect. 
 
@@ -103,7 +105,7 @@ Before proceeding, make sure that you have double checked the following:
   * You have installed the necessary components listed under “Pre-Deployment.”
   * The configuration files listed above have been properly edited to match your system’s environment.
   * Your Tomcat server and database(PostgreSQL) server are both up and running, and have the correct authentication settings.
-  * Your projects directory (_images.path_, in build.xml, which in our example is set to /mnt/metadb-projects) is valid, has been properly configured in the build script, and has the appropriate permission settings to allow MetaDB to read and write from this directory.
+  * Your master and derivative(access) root directories are valid, have been properly configured in the build script, MetaDB has read access to your master directory and read/write access to your derivative(access) root directory.
   * Your Java installation is correct, and there are no class path clashes, missing libraries etc. 
 
 *4. Creating the MetaDB database tables*
@@ -114,22 +116,20 @@ Using psql or another database management tool, execute the queries in "metadb.s
 
 *5. Setting up your projects*
 
-MetaDB requires projects to be organized in a specific file structure. In general, each project gets one subdirectory within the PROJECTS_PATH directory from metadb.conf. In our example, that path is /mnt/metadb-projects. So if we want a project called “proj1”, the path for that project will be “/mnt/metadb-projects/proj1”. 
+MetaDB requires projects to be organized in a specific file structure. In general, each project gets one subdirectory within the master and derivative(access) directories, MASTERS_DIRECTORY, and DERIV_DIRECTORY, from metadb.conf. In our example, the master directory is "/mnt/imago1/master" and the derivative(access) directory is "/mnt/imago1/access". So if we want a project called “proj1”, there should be a directory "/mnt/imago1/master/proj1", and "/mnt/imago1/access/proj1". 
 
-Within each project directory, create three separate subdirectories: 
+Ensure that the master directory grants read only permissions to MetaDB and the derivative(access) directory grants read-write permissions to MetaDB.
 
-“/master” –this is the directory containing all of your master files.“/access” –this is the directory where the derivative images will be created, if any. “/thumbnail” –this is the directory where the thumbnails will be stored. 
+Place all of your master files into your project subdirectory, WITHIN THE MASTER DIRECTORY (NOT the derivative(access) directory), in the below format.
 
-Place all of your master files into “/master” in the below format.
+In order to ensure data integrity and error detection in a cataloging environment MetaDB requires that your master file names end with {#####}.{extension}, where ##### is a five-digit integer sequence from 00001 to 99999 and extension is the file extension. This means one project can (theoretically) have 99,999 records. Place your master files sequenced by these five digits to have MetaDB process them in that order. Note that if there is a gap in sequencing or improper sequencing, MetaDB will refuse to process. (Refer to the user manual for details)
 
-In order to ensure data integrity and error detection in a cataloguing environment MetaDB requires that your master filenames end with {#####}.{extension}, where ##### is a five-digit integer sequence from 00001 to 99999 and extension is the file extension. This means one project can (theoretically) have 99,999 records. Place your master files sequenced by these five digits to have MetaDB process them in that order. Note that if there is a gap in sequencing or improper sequencing, MetaDB will refuse to process. (Refer to the user manual for details)
-
+<wiki:comment>
 *4. Setting up the deploy script *
 
-When you are confident that you have the settings right, go to your path, or rather the directory you have the build files in. In our case this is /usr/yamaguchih/metadb. Here there is a file, “reload.sh” which is a bash script. Here are its contents:
+When you are confident that you have the settings right, go to the directory you have the build files in. In our case this is /usr/yamaguchih/metadb. Here there is a file, “reload.sh” which is a bash script. Here are its contents:
 
 {{{
-
 rm –f {PROJECTS_TOMCAT_PATH_SYMLINK};
 
 ant reload;
@@ -159,10 +159,13 @@ where *CATALINA_HOME* is the path your Tomcat installation (in our case, /usr/sh
 * Replace TOMCAT_GROUP with the group in which the above TOMCAT_USER belongs.
 
 This short script will remove the symbolic link to your physical projects directory, reload the web application, wait for 10 seconds, recreate the symbolic link to your physical projects directory, and change the ownership of that link to be your Tomcat user (to allow Tomcat to access the master files).
+</wiki:comment>
 
 *5. Deploying MetaDB*
 
-Go to the directory where reload.sh lies (if you moved it make sure it uses the right paths!) and execute the script (usually the command “./reload.sh” will do it). If all goes well, Ant will compile MetaDB, deploy it to your Tomcat server, and you should be able to access MetaDB from your favorite browser.
+Go to the directory where build.xml lies and run 
+
+reload.sh lies (if you moved it make sure it uses the right paths!) and execute the script (usually the command “./reload.sh” will do it). If all goes well, Ant will compile MetaDB, deploy it to your Tomcat server, and you should be able to access MetaDB from your favorite browser.
 
 =*Post-Deployment*=
 
