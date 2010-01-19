@@ -43,7 +43,7 @@ MetaDB seeks to eliminate tedious and repetitive tasks through automation. This 
 
 _Security_
 
-Permission management was a must from the beginning given that not all users of MetaDB would have access to all of its features. Currently MetaDB supports three types of users: regular users, who can be granted appropriate read or write privileges, project moderators who have full access for their specific projects, and administrators, who have full access to all projects and can also change system settings.
+Permission management was a must from the beginning given that not all users of MetaDB would have access to all of its features. Currently MetaDB supports two types of users: regular users, who can be granted appropriate read or write privileges, and administrators, who have full access to all projects and can also change system settings.
 
 MetaDB uses encryption for the storage of user data and file information. 
 
@@ -63,7 +63,7 @@ The basis for any work done in MetaDB lies in a project, which is basically a co
 
 _Setting up the project for metadata creation_
 
-Once a project has been created, it will be possible to process the master imagesfor that project into the MetaDB system. MetaDB has the ability to automatically gather technical data from processed master files and generate them for online viewing. MetaDB also handles all of the thumbnail generation. In addition, users have access to a predetermined number of slots for ''derivative images'', which are custom-sized replicas of master files that may be created for any purpose including print publication. 
+Once a project has been created, it will be possible to process the master images for that project into the MetaDB system. MetaDB has the ability to automatically gather technical data from processed master files and generate them for online viewing. MetaDB also handles all of the thumbnail generation. In addition, users have access to a predetermined number of slots for ''derivative images'', which are custom-sized replicas of master files that may be created for any purpose including print publication. 
 
 At the time of image processing, users also have the option of adding text watermarks or annotation for informational or legal purposes, with customizable options. These are directly handled by MetaDB and written to disk.
 
