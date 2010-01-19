@@ -71,6 +71,8 @@ Upon adding a new field(s), there are some settings that must be chosen via the 
 
   * Large: If you would like the editing window for the field to be a text box rather than a one line editor, check this box. An example of using this may be to provide a descriptive paragraph. 
 
+  * Date: If you would like the field to contain date information, check this option. Upon data entry a date picker will prompt for input.
+
   * Controlled: For detailed information about Controlled Vocabulary, see the Controlled Vocabulary section. Selecting this box will bring up a sub-window which will allow you to choose from an existing vocabulary, upload a new one or manually add a new list.
 
   * Multiple: If this option is checked, users may enter more than one term contained in the vocabulary when inputting metadata. 
@@ -96,7 +98,7 @@ By default, thumbnails and full-size JPEGs are automatically generated and you c
 
 _Size_
 
-You can enter a maximum size, in terms of maximum width and maximum length, for the derivative setting. MetaDB will automatically calculate the appropriate scale factor for you, so there’s no need to specify the size exactly.
+You can enter a maximum size, in terms of maximum width and maximum length, for the derivative setting. MetaDB will automatically calculate the appropriate scale factor for you, so there’s no need to specify the size exactly. This serves as a threshold; no dimension of the resulting derivative can exceed this value.
 
 _Brand_
 
@@ -130,7 +132,7 @@ The “Save” button will save your current derivative settings.
 
 The “Submit” button will process your master files according to one of three settings (note that sequencing matters—if there is an incorrect item sequence, MetaDB will stop processing):
  
-  * New: MetaDB will look for previously nonexistent files in your master directory, and add them to your project as new records. Note that master file sequencing matters here: If you alter a file which was already imported into the system, MetaDB will not recognize it as “new” since it will start from the last ''item sequence (“#####”), not the date modified.'' This is to help ensure data integrity and confusion about what is new and what is not. 
+  * New: MetaDB will look for previously nonexistent files in your master directory, and add them to your project as new records. Note that master file sequencing matters here: If you alter a file which was already imported into the system, MetaDB will not recognize it as “new” since it will start from the last ''item sequence (“####”), not the date modified.'' This is to help ensure data integrity and confusion about what is new and what is not. 
   * All: Regardless of whether they are new or not, MetaDB will process all of the master files it can find. This means it will detect changed files, unlike the above option. 
   * Select Range: You can enter comma-delimited numbers and number ranges (for ex, to process items 1, 2-5, and 8, you would enter “1, 2-5, 8”) , which are the item numbers of the master files you want to process. 
 
@@ -194,13 +196,13 @@ _File organization_
 
 MetaDB follows a very strict organization of master files for the purpose of preserving data integrity and orderliness. 
 
-Each master file can be named as desired; however, it is advisable to use a file name structure that makes it clear what project the master file is part of, under what organization; for example, from a file name like lafcol-history-taiwan-00001.tif it is quite obvious that the collection belongs to the Lafayette College History department, and has something to do with Taiwan. 
+Each master file can be named as desired; however, it is advisable to use a file name structure that makes it clear what project the master file is part of, under what organization; for example, from a file name like lafcol-history-taiwan-0001.tif it is quite obvious that the collection belongs to the Lafayette College History department, and has something to do with Taiwan. 
 
-Aside from the consistency in prefixing the images, master files also must be named in a particular ascending order, starting from {prefix}-00001.{extension} and going up to a maximum of {prefix}-99999.{extension}. This is the order in which MetaDB will look for records and the order in which they will be organized within MetaDB. Gaps are not allowed; that is you cannot have something like 
+Aside from the consistency in prefixing the images, master files also must be named in a particular ascending order, starting from {prefix}-0001.{extension} and going up to a maximum of {prefix}-9999.{extension}. This is the order in which MetaDB will look for records and the order in which they will be organized within MetaDB. Gaps are not allowed; that is you cannot have something like 
 
-..00001.tif
-..00002.tif
-..00099.tif
+..0001.tif
+..0002.tif
+..0099.tif
 
 If this is detected, MetaDB will refuse to process the third file unless corrective action is taken and the master files are organized properly. 
 
