@@ -124,7 +124,7 @@ Place all of your master files into your project subdirectory, WITHIN THE MASTER
 
 In order to ensure data integrity and error detection in a cataloging environment MetaDB requires that your master file names end with {####}.{extension}, where #### is a four-digit integer sequence from 0001 to 9999 and extension is the file extension. This means one project can (theoretically) have 9,999 records. Place your master files sequenced by these four digits to have MetaDB process them in that order. Note that if there is a gap in sequencing or improper sequencing, MetaDB will refuse to process. (Refer to the user manual for details)
 
-*4. Setting up the deploy script *
+*6. Setting up the deploy script *
 
 When you are confident that you have the settings right, go to the directory you have the build files in. In our case this is /usr/yamaguchih/metadb. Here there is a file, “reload.sh” which is a bash script. Here are its contents:
 
@@ -152,11 +152,18 @@ where *CATALINA_HOME* is the path your Tomcat installation (in our case, /usr/sh
 
 This short script will remove the symbolic link to your physical projects directory, reload the web application, wait for 10 seconds, recreate the symbolic link to your physical projects directory, and change the ownership of that link to be your Tomcat user (to allow Tomcat to access the master files).
 
-*5. Deploying MetaDB*
+*7. Deploying MetaDB*
 
 Go to the directory where build.xml lies and run 
 
 reload.sh lies (if you moved it make sure it uses the right paths!) and execute the script (usually the command “./reload.sh” will do it). If all goes well, Ant will compile MetaDB, deploy it to your Tomcat server, and you should be able to access MetaDB from your favorite browser.
+
+*8. Maintenance*
+
+Once MetaDB is up and running, you may want to set up a cron job that cleans the database every so often (this is standard practice.) For example, the below job will run every morning at 4AM and clean out the database 'metadb_database'. Notice that vacuumdb usually needs a user and password. Also, the location of your database files may differ (the below system has it in '/etc'. Please see the relevant database documentation for more detailed information including customizing cleaning options.
+
+# run pgsql's vacuumdb at 4am each morning to prevent buildup in /etc
+0 4 * * * /bin/vacuumdb -f -d metadb_database
 
 =*Post-Deployment*=
 
