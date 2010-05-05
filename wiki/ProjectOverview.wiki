@@ -7,7 +7,7 @@ Here you will find a detailed description of MetaDB. Note: this document is a wo
 
 = Details =
 
-*MetaDB 4.0.0 Detailed Project Overview*
+*MetaDB 3.0.0 Detailed Project Overview*
 
 *_Project Summary and Brief History_*
 
