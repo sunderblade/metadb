@@ -29,13 +29,13 @@ _Username_ is a string of any length containing the username. Try not to use spe
 
 _User Type_ is the main level of privileges the user will be granted. 
 
-{add details on user types here}
+"Administrators" (admin) can access all of MetaDB's systems and automatically have access to all projects. "Workers" (worker) can only access specific portions of MetaDB's systems that are specified by administrators, and can be assigned one or more projects. Administrators cannot be deleted (a manual removal is necessary). 
 
 _Password_ and _Confirm Password_ are the password for this new user. It can be changed later if desired.
 
 <u>*_Delete User_*</u>
 
-You may delete any of the users in this menu. Once you hit “confirm”, the user will be erased from the MetaDB database along with any associated permissions. 
+You may delete any of the "worker" privilege users in this menu. Once you hit “confirm”, the user will be erased from the MetaDB database along with any associated permissions. 
 
 <u>*_User Settings_*</u>
 
@@ -49,15 +49,19 @@ To give a user access to a project, select the user from the drop down menu, cho
 
 This is where you can create new projects. 
 
-_Project Name_ is the name for the project. Try not to use capital letters, symbols or spaces to prevent possible internal problems. 
+_Project Name_ is the name for the project. Try not to use capital letters, special symbols or spaces to prevent possible internal problems.
 
-_Department abbreviation_
-
-_Base Image URL_
+_Department abbreviation_ is a convenience field that can be used as internal identifiers. This field does not directly affect MetaDB's operation.
 
 <u>*_Delete Project_*</u>
 
-This page allows you to delete existing projects. Deleting a project will cause all of the metadata to be lost, as well as any associated settings including user permissions for that project. Before deleting anything, ensure that you have back up copies.
+This page allows you to delete existing projects. 
+
+"Delete all data and images" will delete all metadata, as well as all derivative images created from that project. It will also erase any user permissions tied to that project. Before carrying out this operation, ensure that you make back ups. 
+
+"Delete administrative/descriptive data only" will only clear out the administrative and descriptive metadata and leave all technical fields, derivative images, as well as user permissions intact. 
+
+"Delete technical data and images only" will clear out the technical data and all derivative images but leave administrative/descriptive data, as well as user permissions, intact. To repopulate technical data and derivative images, the collection will need to be re-processed by MetaDB.
 
 <u>*_Edit Project_*</u>
 
@@ -69,36 +73,36 @@ _Adding fields_
 
 Under each heading (“Administrative Metadata” and “Descriptive Metadata”), you will see a list of current fields and a blank row for adding new fields.
 
-A new field has already been provided but to add multiple fields at the same time, click the “+” button to the right. Alternatively, you can enter a number in the “Add Custom Fields” box and click “Add Fields.” You can re-order fields by dragging the arrows to the left of each field.
+One new field has already been provided, but more fields may be added with the "+" button. The "Add multiple fields" text box at the bottom may be used to add multiple fields at once.
 
 Upon adding a new field(s), there are some settings that must be chosen via the check boxes:
 
-  * Large: If you would like the editing window for the field to be a text box rather than a one line editor, check this box. An example of using this may be to provide a descriptive paragraph. 
+  * Search Date: If you would like the field to contain searchable date information, check this option. Note that all data in this field must be valid dates.
 
-  * Date: If you would like the field to contain date information, check this option. Upon data entry a date picker will prompt for input.
+  * Display Date: If you would like the field to contain human-readable (display) date information, check this option.
 
-  * Controlled: For detailed information about Controlled Vocabulary, see the Controlled Vocabulary section. Selecting this box will bring up a sub-window which will allow you to choose from an existing vocabulary, upload a new one or manually add a new list.
+  * Large Text Field: If you would like the editing window for the field to be a text box rather than a one line editor, check this box. An example of using this may be to provide a descriptive paragraph. 
 
-  * Multiple: If this option is checked, users may enter more than one term contained in the vocabulary when inputting metadata. 
+  * Controlled Vocabulary: For detailed information about Controlled Vocabulary, see the Controlled Vocabulary section. Selecting this box will bring up a sub-window which will allow you to choose from an existing vocabulary, upload a new one or manually add a new list.
+
+  * Allow Multiple Terms: If this option is checked, users may enter more than one term contained in the vocabulary when inputting metadata. 
   
-  * Additions: If this option is checked, users may add new terms to the vocabulary as they input data; that is, it will be possible to attain suggestions from the vocabulary list, but it will also be possible to modify the vocabulary list on the fly.
-  *  * Note: If a field is not controlled, neither “multiple” nor “additions” will be available.
+  * Allow New Terms: If this option is checked, users may add new terms to the vocabulary as they input data; that is, it will be possible to attain suggestions from the vocabulary list, but it will also be possible to modify the vocabulary list on the fly.
+  *  * Note: If a field is not controlled, neither “allow multiple terms” nor “allow new terms” will be available.
 
 Once you are done with the settings, hit “Update” and your changes should be reflected. 
 
 _Removing fields_
 
-Remove fields by clicking the “-“ to the right of the field. You will get a confirmation box upon clicking.
+Remove fields by clicking the “-“ to the right of the field. Removing the field will mean that *all data contained in this field for all items in the project will be lost.*
 
-<u>*_Image Settings_*</u>
+<u>*_Derivative Settings_*</u>
 
-This is where derivative generation, as well as manual processing of new items in a project, takes place. At the top you will see a summary of the project, with its name, path, and the number of records. 
-
-Under “Derivative Settings” you will see three editable lines. These are the settings for generating derivative images. 
+This is where derivative generation, as well as manual processing of new items in a project, takes place. 
 
 _Enabling/Disabling_
 
-By default, thumbnails and full-size JPEGs are automatically generated and you cannot disable these. You may disable the “medium” and “large” settings, meaning these images will not be generated. 
+By default, thumbnails and "zoom" JPEGs are automatically generated and you cannot disable these. You may disable the “custom" and "full size” settings, meaning these images will not be generated. 
 
 _Size_
 
@@ -106,11 +110,11 @@ You can enter a maximum size, in terms of maximum width and maximum length, for 
 
 _Brand_
 
-The “brand” setting controls text annotation for the derivatives.
+The “brand” setting controls text annotation for "custom" and "fullsize" derivatives.
 
   * "None" means that the image is left untouched and no text will be generated.
 
-  * "Under" means that annotation text will be added to the bottom of the scaled image, resulting in extra image length. Note that the “under” option will not overwrite any portion of the original image; it simply appends a rectangular band below the image containing the annotation text.
+  * "Under" means that annotation text will be added to the bottom of the scaled image, resulting in extra image height. Note that the “under” option will not overwrite any portion of the original image; it simply appends a rectangular band containing the annotation text below the image.
 
   * "Over" means that the annotation text will be watermarked onto the image. The watermark is transparent and meant to be unobtrusive. 
 
@@ -136,17 +140,20 @@ The “Save” button will save your current derivative settings.
 
 The “Submit” button will process your master files according to one of three settings (note that sequencing matters—if there is an incorrect item sequence, MetaDB will stop processing):
  
-  * New: MetaDB will look for previously nonexistent files in your master directory, and add them to your project as new records. Note that master file sequencing matters here: If you alter a file which was already imported into the system, MetaDB will not recognize it as “new” since it will start from the last ''item sequence (“####”), not the date modified.'' This is to help ensure data integrity and confusion about what is new and what is not. 
-  * All: Regardless of whether they are new or not, MetaDB will process all of the master files it can find. This means it will detect changed files, unlike the above option. 
-  * Select Range: You can enter comma-delimited numbers and number ranges (for ex, to process items 1, 2-5, and 8, you would enter “1, 2-5, 8”) , which are the item numbers of the master files you want to process. 
+  * All: MetaDB will process all of the master files it can find. 
+  * These: You can enter comma-delimited numbers and number ranges (for ex, to process items 1, 2-5, and 8, you would enter “1, 2-5, 8”) , which are the item numbers of the master files you want to process. 
 
 ==Controlled Vocabulary==
 
 Controlled vocabulary is used to limit the data that users can input when editing metadata. Controlled vocabulary is global to all projects and can be tied to individual fields. A controlled vocabulary consists of a newline-delimited list of words or phrases that can be used throughout MetaDB. They can be edited at any time through the “Edit Project” or the “Controlled Vocabulary” sections in Project Management. 
 
-The proper use of controlled vocabulary can be extremely useful when handling data that contains multiple references to the same thing. For example, if you have a project that refers repeatedly to the name “Marquis de Lafayette”, you can specify a vocabulary that contains this string, but allow the user to use additional names if necessary through the “Additions” setting.
+The proper use of controlled vocabulary can be extremely useful when handling data that contains multiple references to the same thing. For example, if you have a project that refers repeatedly to the name “Marquis de Lafayette”, you can specify a vocabulary that contains this string, but allow the user to use additional names if necessary through the “Allow New Terms” setting.
 
 ==Data Management==
+
+_View Metadata_
+
+This option allows you to view all of the metadata in a project in a convenient, Excel-like table. You can select the attributes from the list, and click "View Table." You will see a table containing all of the attributes you selected for each record in the selected project. You can also edit the metadata directly on the page by clicking the text--an input box should appear. (Note: Some of the metadata is not editable, namely the technical attributes.)
 
 _Import Metadata_
 
@@ -158,16 +165,16 @@ The “Dataset” option currently only has administrative/descriptive data and 
 
 The “Browse” box lets you choose a T/CSV file from the computer you are using (or over the network), which will actually be imported. 
 
-The “Import” button will commit the import. MetaDB will process the CSV/TSV file and the data will be put into the project you select. Go to the metadata pages to see the data you imported.
+The “Import” button will commit the import. MetaDB will process the CSV/TSV file and the data will be put into the project you select. Go to the metadata pages to see the data you imported. If any anomalies, specifically invalid field names, are found, MetaDB will alert you of these problems both on this screen and in "Edit Project" after import.
 
 _Export Metadata_
 
 On this screen you may export T/CSV files from the existing metadata. Like on the Import page, select the project with the menu on the upper right hand corner. Once you have selected the delimiter and range of record numbers to export, hit "Export" to receive a download prompt with the generated T/CSV file.
-
-_View Metadata_
-
-This option allows you to view all of the metadata in a project in a convenient, Excel-like table. You can select the attributes from the list, and click "View Table." You will see a table containing all of the attributes you selected for each record in the selected project. You can also edit the metadata directly on the page by clicking the text--an input box should appear. (Note: Some of the metadata is not editable, namely the technical attributes.)
   
+_Controlled Vocabulary_
+
+This is a similar interface to the one found in the "Edit Project" page. Unlike the "Edit Project" version, regular users may be granted permissions to use this feature. However, administrator privileges are still required to tie a field to a controlled vocabulary list.
+
 ==Item Metadata==
 
 This is the main metadata editing screen that you will be interacting with in using MetaDB to catalogue data. At the top you will see the navigation buttons for accessing different records in the project. The fast-rewind button will take you to the first record, the rewind to the previous. The skip button will take you to the next record, and the fast-forward button will take you to the last. You can also enter a number in the box and hit "enter". 
@@ -176,7 +183,7 @@ On the left side, you will see links to derivative images. Notice that if you ha
 
 On the right side you will see the attributes for the item and the data contained in them, separated into three tabs for the different types of metadata. Of these, you may edit the data in the "Descriptive" and "Administrative" tabs. 
 
-Note that if controlled vocabulary is enabled for any attribute, you will need to input data based on the controlled vocabulary (except when the option is set to "additions" where you will be able to add new words). 
+Note that if controlled vocabulary is enabled for any attribute, you will need to input data based on the controlled vocabulary. If the "allow multiple terms" option is set to true, additional terms may be added. If the "allow new terms" option is set to true, new terms may be entered in the field.
 
 The "Update" button will commit any changes so far. 
 
@@ -210,10 +217,12 @@ Aside from the consistency in prefixing the images, master files also must be na
 
 If this is detected, MetaDB will refuse to process the third file unless corrective action is taken and the master files are organized properly. 
 
-_Definition of "new" and "existing" records_
-
-If a master file has been taken in by MetaDB, parsed, and stored, then that is considered to be an "existing" record, regardless of the presence of user-created data or derivatives. If a master file has not yet been touched by MetaDB and the system contains no references to it, then that is considered to be a "new" record. 
-
 ==FAQ==
 
 ==Support/Contact Information==
+
+MetaDB developers can be contacted via email. 
+
+Eric Luhrs, supervisor: luhrse@lafayette.edu
+Long Ho, UI and Javascript developer: hol@lafayette.edu
+Miguel Haruki Yamaguchi, database and Java backend developer: yamagucm@lafayette.edu
