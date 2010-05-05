@@ -90,9 +90,9 @@ As will be explained later, MetaDB relies on a folder structure to manage projec
 
 Set MASTERS_DIRECTORY to the location of the parent directory for your master files and DERIV_DIRECTORY to the location of the parent directory for your derivative files.
 
-The file metadb.conf also contains global variable settings, please see the actual metadb.conf file for details on what the settings affect. 
+The file metadb.conf also contains global variable settings, please see the actual metadb.conf file for details on what the settings affect. You shouldn't need to touch most of the default settings beyond what we have described, unless you want to customize your installation a lot.
 
-After you have edited metadb.conf, run "bash configure". This should run Config.java, and your build settings and global settings should be updated. Make sure that this directory is included in your CLASSPATH before attempting to run, otherwise ClassDefNotFoundException may occur. 
+After you have edited metadb.conf, run "bash configure". This should run Config.java, and your build settings and global settings should be updated. Make sure that this directory is included in your CLASSPATH before attempting to run, otherwise a ClassDefNotFoundException may occur. 
 
 *2. Configuring metadb/webapp-src/etc/context.xml: *
 
@@ -110,7 +110,7 @@ Before proceeding, make sure that you have double checked the following:
 
 *4. Creating the MetaDB database tables*
 
-Go to the _scripts_ directory located in the root build file directory (in our example /usr/yamaguchih/metadb/scripts. In here you will find a file called “metadb.sql”. This is the main database setup script for MetaDB and will recreate, from scratch, all of MetaDB’s tables. This means that any data that was in there will be wiped out, so don’t run this script at your leisure! 
+Go to the _scripts_ directory located in the root build file directory (in our example /usr/yamaguchih/metadb/scripts. In here you will find a file called “metadb.sql”. This is the main database setup script for MetaDB and will recreate, from scratch, all of MetaDB’s tables. *This means that any data that was in there will be wiped out, so don’t run this script at your leisure!*
 
 Using psql or another database management tool, execute the queries in "metadb.sql". You should now be ready to do a final setup of the deploy script, and deploy MetaDB. 
 
@@ -146,7 +146,7 @@ where *CATALINA_HOME* is the path your Tomcat installation (in our case, /usr/sh
 
 * Replace DERIV_DIRECTORY with the value of the variable of the same name from metadb.conf. In our example this would be
 
-/mnt/imago1/access. 
+/mnt/imago1/access.
 
 * You do not need to manage the master-file directory here because it is in MetaDB's generated code.
 
@@ -160,7 +160,7 @@ reload.sh lies (if you moved it make sure it uses the right paths!) and execute 
 
 *8. Maintenance*
 
-Once MetaDB is up and running, you may want to set up a cron job that cleans the database every so often (this is standard practice.) For example, the below job will run every morning at 4AM and clean out the database 'metadb_database'. Notice that vacuumdb usually needs a user and password. Also, the location of your database files may differ (the below system has it in '/etc'. Please see the relevant database documentation for more detailed information including customizing cleaning options.
+Once MetaDB is up and running, you may want to set up a cron job that cleans the database every so often (this is standard practice.) For example, the below job will run every morning at 4AM and clean out the database 'metadb_database'. Notice that vacuumdb usually needs a user and password. Also, the location of your database files may differ (the below system has it in '/etc'. Please see the relevant database documentation for more detailed information including customizing cleaning options. You may need to sudo the job or run the command as the database owner for the most optimized cleaning.
 
 # run pgsql's vacuumdb at 4am each morning to prevent buildup in /etc
 0 4 * * * /bin/vacuumdb -f -d metadb_database
@@ -198,5 +198,5 @@ _Disclaimer_
 Please feel free to email us with any comments, questions, bug reports, suggestions, fixes, etc.
 
 Eric Luhrs, [mailto:luhrse@lafayette.edu luhrse@lafayette.edu] 
-Miguel Haruki Yamaguchi, [mailto:yamagucm@lafayette.edu yamagucm@lafayette.edu]
+Miguel Haruki Yamaguchi, [mailto:haruki.yamaguchi1989@gmail.com haruki.yamaguchi1989@gmail.com]
 Long L. Ho, [mailto:hol@lafayette.edu hol@lafayette.edu]
