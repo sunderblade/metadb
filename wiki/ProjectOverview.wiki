@@ -11,9 +11,13 @@ Here you will find a detailed description of MetaDB. Note: this document is a wo
 
 *_Project Summary and Brief History_*
 
-MetaDB is a web-based distributed metadata creation tool for digital collections in development at Lafayette College. It allows institutions to use a web-based interface to split digitization tasks among several people.
+MetaDB is a distributed metadata collection tool developed by Lafayette College Libraries. It allows institutions to use a web-based interface to split digital collection building tasks among several people.
 
-The MetaDB system allows project managers to create new projects for digital archives and define metadata requirements, while other users such as subject specialists can update project contents with expert knowledge and annotation. Once the data is ready, it can then be exported to standard formats (CSV/TSV) and re-imported seamlessly into any supporting platform. Records are continually integrated into MetaDB through pre-defined settings and automatically processed, making for a smooth transition from record import to export.
+For example, at Lafayette, a librarian creates new projects, defines metadata requirements, supplies data for administrative fields, and imports high-resolution master TIF images into the system. Subject specialists then access the system remotely and enter descriptive data about each item. Once all metadata has been collected, projects are exported as CSV or tab-delimited data files that are easily ingested into most repository systems.
+
+MetaDB supports several features that strengthen digital collection building efforts, including the use of controlled vocabularies, the ability to search, browse, sort, and edit records in different ways, and support for concurrent access by multiple users. The application extracts technical metadata from images, and automatically creates JPG access derivatives that can include branded or banded text, as well as zoomable high-resolution images for close study.
+
+MetaDB version 3 was developed by Eric Luhrs, Digital Initiatives Librarian at Lafayette College, and Computer Science students Long Ho ’10 and Haruki Yamaguchi ’11. 
 
 *_Past/Current Concerns in MetaDB_*
 
