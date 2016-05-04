@@ -1,0 +1,7 @@
+<p>MetaDB is a distributed metadata collection tool developed by <a href='http://www.library.lafayette.edu'>Lafayette College Libraries</a>. It allows institutions to use a web-based interface to split digital collection building tasks among several people. </p>
+
+<p>For example, at Lafayette, a librarian creates new projects, defines metadata requirements, supplies data for static fields, and imports high-resolution master TIF images into the system.  Subject specialists then access the system remotely and enter descriptive data about each item.  Once all metadata has been collected, projects are exported as CVS or tab-delimited data that is easily ingested into various repository systems.</p>
+
+<p>MetaDB supports several features that strengthen digital collection building efforts, including the use of controlled vocabularies, and the ability to search, browse, sort, and edit records in different ways, and support for concurrent access by multiple users.  The application extracts technical metadata from images, and automatically creates JPG access derivatives that can include banded or branded text, as well as zoomable images for close study. </p>
+
+<p>MetaDB version 3 was developed at Lafayette College by <a href='http://digital.lafayette.edu/contact'>Eric Luhrs<a>, Digital Initiatives Librarian, Long Ho ’10, and Haruki Yamaguchi ’11.
